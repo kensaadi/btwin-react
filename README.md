@@ -103,6 +103,8 @@ For enable twin.macro need to include `babelMacros` to **_package.json_**
   yarn add twin.macro
 ```
 
+**_I create @types folder_** this folder contain a file `twin.d.ts` is a type definition for used the import tw, {styled,css}.
+
 Runs the app in the development mode.\
 
 ### `yarn start`
