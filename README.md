@@ -1,46 +1,108 @@
-# Getting Started with Create React App
+# Configuration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A boilerplate react typescript installation with `tailwind css` ,`twin.macro` ,`styled-components` and `craco`. This set up use `yarn package`
 
-## Available Scripts
+## Create React application
 
-In the project directory, you can run:
+Create a new react application template typescript
 
-### `yarn start`
+```jsx
+  npx create-react-app my-app template=typescript
+```
+
+## Install Tailwind css
+
+```jsx
+yarn add -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
+
+> Create react app doesn't support PostCSS 8 yet you need to install the Tailwind CSS v2.0 PostCss 7
+
+### Create Tailwindcss configuration file
+
+Next, generate your `tailwind.config.js`file:
+
+```jsx
+  npx tailwindcss-cli@latest init
+```
+
+This will create a minimal `tailwind.config.js` file at the **_root_** your project.
+
+```jsx
+// tailwind.config.js
+module.exports = {
+	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+	darkMode: false, // or 'media' or 'class'
+	theme: {
+		extend: {},
+	},
+	variants: {
+		extend: {},
+	},
+	plugins: [],
+};
+```
+
+Read a separate guide about [optimizing for production](https://tailwindcss.com/docs/optimizing-for-production) to learn more about tree-shaking unused styles for best performance.
+
+### Include Tailwind in your CSS
+
+The styled is stored on **_./src/assets/tailwind.css_**. Contain all directive to Tailwind's. This file is imported to `index.tsx` for setting up
+
+## Install and configure CRACO
+
+```jsx
+  yarn add @craco/craco
+```
+
+### Update package.json
+
+```jsx
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
+  }
+```
+
+Now create a configuration file `craco.config.js`.
+
+```jsx
+// craco.config.js
+module.exports = {
+	style: {
+		postcss: {
+			plugins: [require('tailwindcss'), require('autoprefixer')],
+		},
+	},
+};
+```
+
+## Babel
+
+For enable twin.macro need to include `babelMacros` to **_package.json_**
+
+```jsx
+"babelMacros": {
+    "twin": {
+      "config": "./tailwind.config.js",
+      "preset": "styled-components"
+    }
+  }
+```
+
+## styled-components
+
+```jsx
+  yarn add styled-components
+```
+
+## Twin.macro set up
+
+```jsx
+  yarn add twin.macro
+```
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `yarn start`
